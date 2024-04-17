@@ -170,7 +170,8 @@ class DateRange extends Data implements
     public function getVersionPreview(mixed $data, DataObject\Concrete $object = null, array $params = []): string
     {
         if ($data instanceof CarbonPeriod) {
-            return $data->toString();
+            // $data->toString() can't be used because CarbonPeriods dateInterval property is wrongly set in Serialization as a PHP DateInterval and not as a CarbonInterval as expected from CarbonPeriod class
+            return 'From ' . $data->getStartDate()->toDateString() . ' to ' . $data->getEndDate()->toDateString();
         }
 
         return '';
